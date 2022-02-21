@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 arqv = os.listdir('dados')
-df = pd.Series()
+df = pd.DataFrame()
 fname = 'dados\{}'
 for filecsv in arqv:
     # f= 'dados\INMET_SE_SP_A771_SAO PAULO - INTERLAGOS_01-01-2021_A_31-12-2021.CSV'
@@ -19,12 +19,12 @@ for filecsv in arqv:
 
     dados = pd.read_csv('dados\\'+filecsv, sep=';', header=8, usecols=[0,1,2], decimal=',', encoding='mbcs', names= ['Data', 'Hora', id[1]+' - '+id[0]])
 
-    if (pd.isnull(dados[id[1]+' - '+id[0]]).all() is True):
+    if (pd.isnull(dados[id[1]+' - '+id[0]]).all()):
         next
     else:
-        count = dados[id[1]+' - '+id[0]].value_counts(normalize= True, bins = 8)
-        ct = pd.Series(count)
-        df = pd.concat([df, ct], axis=1) #.IntervalIndex.get_indexer_non_unique()
+        count = pd.DataFrame(dados[id[1]+' - '+id[0]].value_counts(normalize= True, bins = 8))
+        count.reset_index(inplace= True)
+        df = pd.concat([df, count], axis=1) #.IntervalIndex.get_indexer_non_unique()
     # df = pd.concat([df, ct.reindex(df.index)], axis=1)
     # df = pd.merge(df, ct, how='outer')
     
