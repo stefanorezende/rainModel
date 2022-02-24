@@ -3,7 +3,9 @@ test*
 Ref/
 dados/
 .vscode/
-
+* bins/
+YBY/
+byStation/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
